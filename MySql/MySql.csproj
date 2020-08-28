@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>LightestNight.System.EventSourcing.Checkpoints.MySql</AssemblyName>
+        <RootNamespace>LightestNight.System.EventSourcing.Checkpoints.MySql</RootNamespace>
+        <LangVersion>default</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <None Remove="Scripts\CreateSchema.sql" />
+        <EmbeddedResource Include="Scripts\CreateSchema.sql" />
+        <None Remove="Scripts\GetCheckpoint.sql" />
+        <EmbeddedResource Include="Scripts\GetCheckpoint.sql" />
+        <None Remove="Scripts\SetCheckpoint.sql" />
+        <EmbeddedResource Include="Scripts\SetCheckpoint.sql" />
+        <None Remove="Scripts\DeleteCheckpoint.sql" />
+        <EmbeddedResource Include="Scripts\DeleteCheckpoint.sql" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="LightestNight.System.Data.MySql" Version="1.0.0" />
+      <PackageReference Include="LightestNight.System.EventSourcing" Version="3.4.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.7" />
+    </ItemGroup>
+
+</Project>
