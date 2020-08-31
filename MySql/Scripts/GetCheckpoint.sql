@@ -1,3 +1,3 @@
 ﻿SELECT checkpoint
-FROM projection_checkpoints
+FROM __table-name__
 WHERE checkpoint_name = @CheckpointName

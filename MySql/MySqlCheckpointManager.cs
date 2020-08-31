@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using LightestNight.System.Data.MySql;
-using Microsoft.Extensions.Logging;
 using MySqlConnector;
 
 namespace LightestNight.System.EventSourcing.Checkpoints.MySql
@@ -11,11 +10,9 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql
     {
         private readonly Func<MySqlConnector.MySqlConnection> _createConnection;
         private readonly Scripts.Scripts _scripts;
-        private readonly ILogger<MySqlCheckpointManager> _logger;
 
-        public MySqlCheckpointManager(IMySqlConnection connection, ILogger<MySqlCheckpointManager> logger)
+        public MySqlCheckpointManager(IMySqlConnection connection)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _scripts = new Scripts.Scripts();
 
             _createConnection = connection.Build;
@@ -34,6 +31,30 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql
             await using var command = new MySqlCommand(_scripts.SetCheckpoint, connection);
             command.Parameters.AddWithValue("@CheckpointName", checkpointName);
             command.Parameters.AddWithValue("@Checkpoint", checkpoint);
+            await command.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task<long?> GetCheckpoint(string checkpointName, CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            await using var connection = _createConnection();
+            await connection.OpenAsync(cancellationToken).ConfigureAwait(false);
+            await using var command = new MySqlCommand(_scripts.GetCheckpoint, connection);
+            command.Parameters.AddWithValue("@CheckpointName", checkpointName);
+
+            return await command.ExecuteScalarAsync(cancellationToken).ConfigureAwait(false) as long?;
+        }
+
+        public async Task ClearCheckpoint(string checkpointName, CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            await using var connection = _createConnection();
+            await connection.OpenAsync(cancellationToken).ConfigureAwait(false);
+            await using var command = new MySqlCommand(_scripts.DeleteCheckpoint, connection);
+            command.Parameters.AddWithValue("@CheckpointName", checkpointName);
+
             await command.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
         }
 

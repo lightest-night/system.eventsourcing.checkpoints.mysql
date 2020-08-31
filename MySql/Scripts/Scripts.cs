@@ -12,6 +12,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Scripts
         internal string CreateSchema => GetScript();
         internal string SetCheckpoint => GetScript();
         internal string GetCheckpoint => GetScript();
+        internal string DeleteCheckpoint => GetScript();
 
         private string GetScript([CallerMemberName] string? name = default)
             => _scripts.GetOrAdd(name ?? string.Empty,
@@ -24,7 +25,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Scripts
                         throw new FileNotFoundException($"Embedded resource '{key}' was not found.");
 
                     using var reader = new StreamReader(stream);
-                    return reader.ReadToEnd();
+                    return reader.ReadToEnd().Replace("__table-name__", Constants.TableName);
                 }, typeof(Scripts).GetTypeInfo().Assembly);
     }
 }
