@@ -1,8 +1,9 @@
 ﻿CREATE TABLE IF NOT EXISTS __table-name__ (
-    id                  BIGINT          NOT NULL    PRIMARY KEY AUTO_INCREMENT,
-    checkpoint_name     VARCHAR(500)    NOT NULL,
-    checkpoint          BIGINT          NULL,
-    CONSTRAINT uq_projection_checkpoints_checkpoint_name UNIQUE (checkpoint_name)
+    id                      BIGINT          NOT NULL    PRIMARY KEY AUTO_INCREMENT,
+    checkpoint_name         VARCHAR(500)    NOT NULL,
+    checkpoint_name_hash    BINARY(20)      NOT NULL,
+    checkpoint              BIGINT          NULL,
+    CONSTRAINT uq_projection_checkpoints_checkpoint_name_hash UNIQUE (checkpoint_name_hash)
 ) ENGINE = InnoDB
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
