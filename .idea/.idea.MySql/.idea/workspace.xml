@@ -19,14 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83031909-e8eb-4068-9082-80b2a2e61ddb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MySql/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MySql/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MySql/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MySql/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MySql/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MySql/riderModule.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySql.Tests/MySql.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MySql.Tests/MySql.Tests.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySql/obj/Debug/netcoreapp3.1/MySql.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/MySql/obj/Debug/netcoreapp3.1/MySql.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySql/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/MySql/obj/rider.project.restore.info" afterDir="false" />
-    </list>
+    <list default="true" id="83031909-e8eb-4068-9082-80b2a2e61ddb" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,13 +44,13 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/LICENSE" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/MySql/MySql.csproj" />
         <option value="$PROJECT_DIR$/.github/workflows/CI.yml" />
         <option value="$PROJECT_DIR$/.github/workflows/Release.yml" />
         <option value="$PROJECT_DIR$/GitVersion.yml" />
         <option value="$PROJECT_DIR$/MySql.Tests/MySqlCheckpointManagerTests.cs" />
         <option value="$PROJECT_DIR$/MySql/Scripts/CreateSchema.sql" />
         <option value="$PROJECT_DIR$/MySql/Scripts/SetCheckpoint.sql" />
+        <option value="$PROJECT_DIR$/MySql/MySql.csproj" />
       </list>
     </option>
   </component>
@@ -96,6 +89,7 @@
       <workItem from="1598904073561" duration="4508000" />
       <workItem from="1599060718550" duration="1350000" />
       <workItem from="1599063890971" duration="242000" />
+      <workItem from="1599065234960" duration="588000" />
     </task>
     <servers />
   </component>
