@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "OFQWtLBJkSxrOvCDVNoej3MOmuLZLHt79k3lPGYbDTjt/kAQWeA/1j881yyAhfOxVTT//yX73YjqMiEyr7ZNsg==",
+  "dgSpecHash": "qMS9G48qDF33W/0QZVbAAKKLlQzLIL3gtXdvUSfTLkwY95TVf+foodQ36TAfnKdHKR4M7wzoX/iBWr2Vuioakg==",
   "success": true,
   "projectFilePath": "C:\\Development\\Lightest Night\\System\\EventSourcing\\Checkpoints\\MySql\\MySql\\MySql.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\James Woodley\\.nuget\\packages\\lightestnight.system.data.mysql\\1.0.0\\lightestnight.system.data.mysql.1.0.0.nupkg.sha512",
+    "C:\\Users\\James Woodley\\.nuget\\packages\\lightestnight.system.data.mysql\\1.1.0\\lightestnight.system.data.mysql.1.1.0.nupkg.sha512",
     "C:\\Users\\James Woodley\\.nuget\\packages\\lightestnight.system.eventsourcing\\3.4.0\\lightestnight.system.eventsourcing.3.4.0.nupkg.sha512",
     "C:\\Users\\James Woodley\\.nuget\\packages\\lightestnight.system.serviceresolution\\1.1.2\\lightestnight.system.serviceresolution.1.1.2.nupkg.sha512",
     "C:\\Users\\James Woodley\\.nuget\\packages\\lightestnight.system.utilities\\1.8.5\\lightestnight.system.utilities.1.8.5.nupkg.sha512",
