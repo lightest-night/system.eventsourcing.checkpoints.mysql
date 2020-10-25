@@ -46,7 +46,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
                 })
                 .Create();
 
-            _connection = new MySqlConnection(_options);
+            _connection = new MySqlConnection(() => _options);
             _sut = new MySqlCheckpointManager(_connection);
         }
 
@@ -54,7 +54,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
         public async Task ShouldCreateSchema()
         {
             // Assert
-            await using var connection = _connection.Build();
+            await using var connection = _connection.GetConnection();
             await connection.OpenAsync().ConfigureAwait(false);
             await using var command = new MySqlCommand("SHOW TABLES LIKE 'projection_checkpoints'", connection);
 
@@ -82,7 +82,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
             await _sut.SetCheckpoint(CheckpointName, Checkpoint);
             
             // Assert
-            await using var connection = _connection.Build();
+            await using var connection = _connection.GetConnection();
             await connection.OpenAsync().ConfigureAwait(false);
             await using var command =
                 new MySqlCommand(
@@ -108,7 +108,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
         public async Task ShouldGetCheckpoint()
         {
             // Arrange
-            await using var connection = _connection.Build();
+            await using var connection = _connection.GetConnection();
             await connection.OpenAsync().ConfigureAwait(false);
             await using var command =
                 new MySqlCommand(
@@ -141,7 +141,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
         public async Task ShouldClearCheckpoint()
         {
             // Arrange
-            await using var connection = _connection.Build();
+            await using var connection = _connection.GetConnection();
             await connection.OpenAsync().ConfigureAwait(false);
             await using (var command =
                 new MySqlCommand(

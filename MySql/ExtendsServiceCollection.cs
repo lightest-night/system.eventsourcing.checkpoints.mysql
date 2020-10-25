@@ -8,12 +8,9 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql
     public static class ExtendsServiceCollection
     {
         public static IServiceCollection AddMySqlCheckpointManagement(this IServiceCollection services,
-            Action<MySqlOptions>? options = null)
+            MySqlOptionsFactory mySqlOptionsFactory)
         {
-            var mysqlOptions = new MySqlOptions();
-            options?.Invoke(mysqlOptions);
-
-            services.AddMySqlData(options)
+            services.AddMySqlData(mySqlOptionsFactory)
                 .TryAddSingleton<ICheckpointManager>(sp =>
                     new MySqlCheckpointManager(sp.GetRequiredService<IMySqlConnection>()));
 

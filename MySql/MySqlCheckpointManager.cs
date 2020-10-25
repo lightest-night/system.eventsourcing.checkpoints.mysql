@@ -15,7 +15,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql
         {
             _scripts = new Scripts.Scripts();
 
-            _createConnection = connection.Build;
+            _createConnection = () => connection.GetConnection();
 
             CreateSchemaIfNotExists();
         }
