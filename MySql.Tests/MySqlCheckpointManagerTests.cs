@@ -36,9 +36,9 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
                 {
                     o.Server = Environment.GetEnvironmentVariable("MYSQL_SERVER") ?? "localhost";
                     o.Port = Convert.ToUInt32(Environment.GetEnvironmentVariable("MYSQL_PORT") ?? "3306");
-                    o.UserId = Environment.GetEnvironmentVariable("MYSQL_USERID") ?? "root";
-                    o.Password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD") ?? "j3d1kn1g#t";
-                    o.Database = Environment.GetEnvironmentVariable("MYSQL_DATABASE") ?? "sys";
+                    o.UserId = Environment.GetEnvironmentVariable("MYSQL_USERID") ?? "mysql";
+                    o.Password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD") ?? "mysql";
+                    o.Database = Environment.GetEnvironmentVariable("MYSQL_DATABASE") ?? "mysql";
                     o.Pooling = false;
                     o.MinimumPoolSize = 1;
                     o.MaximumPoolSize = 1;
@@ -62,7 +62,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
             resultSet.ShouldNotBeNull();
         }
         
-        [Fact, Trait("Category", "Unit")]
+        [Fact, Trait("Category", "Integration")]
         public void ShouldThrowIfCancellationRequestedWhenSettingCheckpoint()
         {
             // Arrange
@@ -91,7 +91,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
             (await command.ExecuteScalarAsync().ConfigureAwait(false) as long? ?? 0).ShouldBe(Checkpoint);
         }
         
-        [Fact, Trait("Category", "Unit")]
+        [Fact, Trait("Category", "Integration")]
         public void ShouldThrowIfCancellationRequestedWhenGettingCheckpoint()
         {
             // Arrange
@@ -124,7 +124,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
             result.ShouldBe(Checkpoint);
         }
 
-        [Fact, Trait("Category", "Unit")]
+        [Fact, Trait("Category", "Integration")]
         public void ShouldThrowIfCancellationRequestedWhenClearingCheckpoint()
         {
             // Arrange
