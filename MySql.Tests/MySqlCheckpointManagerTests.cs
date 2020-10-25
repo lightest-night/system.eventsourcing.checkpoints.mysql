@@ -36,9 +36,9 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
                 {
                     o.Server = Environment.GetEnvironmentVariable("MYSQL_SERVER") ?? "localhost";
                     o.Port = Convert.ToUInt32(Environment.GetEnvironmentVariable("MYSQL_PORT") ?? "3306");
-                    o.UserId = Environment.GetEnvironmentVariable("MYSQL_USERID") ?? "mysql";
-                    o.Password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD") ?? "mysql";
-                    o.Database = Environment.GetEnvironmentVariable("MYSQL_DATABASE") ?? "mysql";
+                    o.UserId = Environment.GetEnvironmentVariable("MYSQL_USERID") ?? "root";
+                    o.Password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD") ?? "j3d1kn1g#t";
+                    o.Database = Environment.GetEnvironmentVariable("MYSQL_DATABASE") ?? "sys";
                     o.Pooling = false;
                     o.MinimumPoolSize = 1;
                     o.MaximumPoolSize = 1;
@@ -145,7 +145,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
             await connection.OpenAsync().ConfigureAwait(false);
             await using (var command =
                 new MySqlCommand(
-                    $"INSERT INTO {Constants.TableName} (checkpoint_name, checkpoint) VALUES ('{CheckpointName}', {Checkpoint}) ON DUPLICATE KEY UPDATE checkpoint = {Checkpoint}",
+                    $"INSERT INTO {Constants.TableName} (checkpoint_name, checkpoint_name_hash, checkpoint) VALUES ('{CheckpointName}', UNHEX(SHA1('{CheckpointName}')), {Checkpoint}) ON DUPLICATE KEY UPDATE checkpoint = {Checkpoint}",
                     connection))
                 await command.ExecuteNonQueryAsync().ConfigureAwait(false);
             await connection.CloseAsync().ConfigureAwait(false);
@@ -159,7 +159,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
                 new MySqlCommand(
                     $"SELECT EXISTS(SELECT checkpoint FROM {_options.Database}.{Constants.TableName} WHERE checkpoint_name = '{CheckpointName}')",
                     connection))
-                ((long) (await command.ExecuteScalarAsync())).ShouldBe(0);
+                ((long) await command.ExecuteScalarAsync()).ShouldBe(0);
         }
     }
 }
