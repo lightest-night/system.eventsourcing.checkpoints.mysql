@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
 using LightestNight.System.Data.MySql;
+using Microsoft.Extensions.Logging.Abstractions;
 using MySqlConnector;
 using Shouldly;
 using Xunit;
@@ -46,7 +47,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
                 })
                 .Create();
 
-            _connection = new MySqlConnection(() => _options);
+            _connection = new MySqlConnection(() => _options, NullLogger<MySqlConnection>.Instance);
             _sut = new MySqlCheckpointManager(_connection);
         }
 
