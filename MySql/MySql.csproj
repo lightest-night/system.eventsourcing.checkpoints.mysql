@@ -46,7 +46,7 @@
     </ItemGroup>
     
     <ItemGroup>
-      <PackageReference Include="LightestNight.System.Data.MySql" Version="2.2.0" />
+      <PackageReference Include="LightestNight.System.Data.MySql" Version="2.3.0" />
       <PackageReference Include="LightestNight.System.EventSourcing" Version="3.6.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.9" />
     </ItemGroup>
