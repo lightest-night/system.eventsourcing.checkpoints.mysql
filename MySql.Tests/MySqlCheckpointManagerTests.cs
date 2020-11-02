@@ -113,7 +113,7 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
             await connection.OpenAsync().ConfigureAwait(false);
             await using var command =
                 new MySqlCommand(
-                    $"INSERT INTO {Constants.TableName} (checkpoint_name, checkpoint) VALUES ('{CheckpointName}', {Checkpoint}) ON DUPLICATE KEY UPDATE checkpoint = {Checkpoint}",
+                    $"INSERT INTO {Constants.TableName} (checkpoint_name, checkpoint_name_hash, checkpoint) VALUES ('{CheckpointName}', UNHEX(SHA1('{CheckpointName}')), {Checkpoint}) ON DUPLICATE KEY UPDATE checkpoint = {Checkpoint}",
                     connection);
             await command.ExecuteNonQueryAsync().ConfigureAwait(false);
             await connection.CloseAsync().ConfigureAwait(false);
@@ -142,24 +142,25 @@ namespace LightestNight.System.EventSourcing.Checkpoints.MySql.Tests
         public async Task ShouldClearCheckpoint()
         {
             // Arrange
-            await using var connection = _connection.GetConnection();
-            await connection.OpenAsync().ConfigureAwait(false);
+            await using var arrangementConnection = _connection.GetConnection();
+            await arrangementConnection.OpenAsync().ConfigureAwait(false);
             await using (var command =
                 new MySqlCommand(
                     $"INSERT INTO {Constants.TableName} (checkpoint_name, checkpoint_name_hash, checkpoint) VALUES ('{CheckpointName}', UNHEX(SHA1('{CheckpointName}')), {Checkpoint}) ON DUPLICATE KEY UPDATE checkpoint = {Checkpoint}",
-                    connection))
+                    arrangementConnection))
                 await command.ExecuteNonQueryAsync().ConfigureAwait(false);
-            await connection.CloseAsync().ConfigureAwait(false);
+            await arrangementConnection.CloseAsync().ConfigureAwait(false);
             
             // Act
             await _sut.ClearCheckpoint(CheckpointName).ConfigureAwait(false);
             
             // Assert
-            await connection.OpenAsync().ConfigureAwait(false);
+            await using var assertionConnection = _connection.GetConnection();
+            await assertionConnection.OpenAsync().ConfigureAwait(false);
             await using (var command =
                 new MySqlCommand(
                     $"SELECT EXISTS(SELECT checkpoint FROM {_options.Database}.{Constants.TableName} WHERE checkpoint_name = '{CheckpointName}')",
-                    connection))
+                    assertionConnection))
                 ((long) await command.ExecuteScalarAsync()).ShouldBe(0);
         }
     }
